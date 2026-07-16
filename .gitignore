@@ -1,0 +1,14 @@
+# Dependencies (dev-only, used to generate icons)
+node_modules/
+package-lock.json
+
+# OS and editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs
+npm-debug.log*
+*.log

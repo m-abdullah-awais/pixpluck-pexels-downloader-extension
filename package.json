@@ -1,0 +1,15 @@
+{
+  "name": "pixpluck",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dev tooling for the PixPluck browser extension. The shipped extension is pure vanilla JS and needs no build.",
+  "type": "module",
+  "scripts": {
+    "icons": "node assets/generate-icons.mjs"
+  },
+  "author": "Muhammad Abdullah Awais (https://www.abdullahawais.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
