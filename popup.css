@@ -1,18 +1,20 @@
 /*
  * PixPluck - popup.css
- * A compact design system built around one brand color family (emerald to teal).
+ * A compact design system tuned to the Pexels look: the Pexels green as the one
+ * accent, clean neutral surfaces, and a flat finish with no gradients, so the
+ * popup feels at home on top of pexels.com.
  * Two themes share one set of tokens; only the color values swap.
  */
 
 :root {
-  --grad: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
-  --grad-soft: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(13, 148, 136, 0.14));
-  --accent: #0d9488;
-  --accent-2: #10b981;
+  --accent: #05a081;
+  --accent-hover: #048b71;
+  --accent-press: #037560;
+  --accent-soft: rgba(5, 160, 129, 0.12);
 
   --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
+  --radius: 10px;
+  --radius-lg: 14px;
   --radius-pill: 999px;
 
   --space-1: 4px;
@@ -24,44 +26,43 @@
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --shadow-1: 0 1px 2px rgba(20, 28, 24, 0.06), 0 2px 6px rgba(20, 28, 24, 0.06);
-  --shadow-2: 0 8px 24px rgba(20, 28, 24, 0.12);
-  --shadow-accent: 0 6px 16px rgba(13, 148, 136, 0.28);
-  --shadow-focus: 0 0 0 3px rgba(16, 185, 129, 0.3);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-2: 0 6px 18px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(5, 160, 129, 0.3);
 }
 
 /* Light theme (default) */
 html[data-theme="light"] {
-  --bg: #f5f6f6;
-  --bg-2: #ecefee;
+  --bg: #fbfbfb;
+  --bg-2: #f1f1f1;
   --surface: #ffffff;
   --card: #ffffff;
-  --card-hover: #fafbfb;
-  --text: #14181a;
-  --text-muted: #5c6570;
-  --text-faint: #949aa0;
-  --border: #e7eae9;
-  --border-strong: #d6dad8;
-  --thumb-bg: #edefef;
-  --overlay: rgba(255, 255, 255, 0.86);
-  --scroll: #ced2d0;
+  --card-hover: #fafafa;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --text-faint: #9c9c9c;
+  --border: #e5e5e5;
+  --border-strong: #d4d4d4;
+  --thumb-bg: #f1f1f1;
+  --overlay: rgba(255, 255, 255, 0.88);
+  --scroll: #d4d4d4;
 }
 
 /* Dark theme */
 html[data-theme="dark"] {
-  --bg: #0f1211;
-  --bg-2: #141815;
-  --surface: #171b18;
-  --card: #1c211d;
-  --card-hover: #222823;
-  --text: #edf1ee;
-  --text-muted: #99a39c;
-  --text-faint: #6d766f;
-  --border: #29302b;
-  --border-strong: #39423b;
-  --thumb-bg: #0d100e;
-  --overlay: rgba(11, 15, 12, 0.82);
-  --scroll: #39423b;
+  --bg: #0f0f0f;
+  --bg-2: #1c1c1c;
+  --surface: #151515;
+  --card: #1e1e1e;
+  --card-hover: #262626;
+  --text: #ffffff;
+  --text-muted: #a0a0a0;
+  --text-faint: #737373;
+  --border: #2c2c2c;
+  --border-strong: #3d3d3d;
+  --thumb-bg: #262626;
+  --overlay: rgba(15, 15, 15, 0.85);
+  --scroll: #3d3d3d;
 }
 
 * {
@@ -108,28 +109,25 @@ body {
 
 .brand-logo {
   display: inline-flex;
-  filter: drop-shadow(0 4px 10px rgba(13, 148, 136, 0.3));
 }
 
+/* The wordmark stays neutral and lets the green mark carry the brand, the way
+   Pexels sets their own lockup. */
 .brand-text h1 {
   margin: 0;
   font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
   line-height: 1;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--text);
 }
 
 .brand-text p {
   margin: 3px 0 0;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-muted);
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
 }
 
 /* Icon button + theme toggle */
@@ -141,15 +139,16 @@ body {
   height: 34px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--surface);
   color: var(--text-muted);
   cursor: pointer;
-  transition: color 0.18s var(--ease), background 0.18s var(--ease), transform 0.18s var(--ease);
+  transition: color 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease);
 }
 
 .icon-btn:hover {
   color: var(--text);
   background: var(--bg-2);
+  border-color: var(--border-strong);
 }
 
 .icon-btn:active {
@@ -206,9 +205,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   left: 4px;
   width: calc(50% - 4px);
   height: calc(100% - 8px);
-  background: var(--grad);
+  background: var(--accent);
   border-radius: var(--radius-pill);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.32);
   transition: transform 0.28s var(--ease);
 }
 
@@ -275,7 +273,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform 0.16s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease), opacity 0.18s var(--ease);
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease), color 0.16s var(--ease), opacity 0.16s var(--ease);
 }
 
 .btn:active {
@@ -283,7 +281,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
@@ -293,24 +291,20 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   font-size: 12px;
 }
 
-.btn-primary {
-  color: #ffffff;
-  background: var(--grad);
-  box-shadow: var(--shadow-accent);
-}
-
-.btn-primary:hover:not(:disabled) {
-  box-shadow: 0 8px 22px rgba(13, 148, 136, 0.4);
-}
-
+.btn-primary,
 .btn-solid {
   color: #ffffff;
-  background: var(--grad);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.28);
+  background: var(--accent);
 }
 
+.btn-primary:hover:not(:disabled),
 .btn-solid:hover:not(:disabled) {
-  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.4);
+  background: var(--accent-hover);
+}
+
+.btn-primary:active:not(:disabled),
+.btn-solid:active:not(:disabled) {
+  background: var(--accent-press);
 }
 
 .btn-ghost {
@@ -321,6 +315,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 
 .btn-ghost:hover:not(:disabled) {
   background: var(--bg-2);
+  border-color: var(--text-faint);
 }
 
 /* Subbar (bulk actions) */
@@ -343,7 +338,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
@@ -360,10 +355,10 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 .chip {
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--accent);
   padding: 3px 9px;
   border-radius: var(--radius-pill);
-  background: var(--grad-soft);
+  background: var(--accent-soft);
 }
 
 .bulk-actions {
@@ -405,7 +400,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 
 .state-art {
   color: var(--accent);
-  opacity: 0.9;
   margin-bottom: var(--space-3);
 }
 
@@ -436,18 +430,18 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-1);
-  transition: border-color 0.18s var(--ease), box-shadow 0.2s var(--ease), transform 0.18s var(--ease);
+  transition: border-color 0.18s var(--ease), box-shadow 0.2s var(--ease), background 0.18s var(--ease);
 }
 
 .card:hover {
+  background: var(--card-hover);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-1);
 }
 
 .card.is-selected {
-  border-color: transparent;
-  box-shadow: 0 0 0 2px var(--accent), var(--shadow-2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .card-thumb {
@@ -482,7 +476,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   align-items: center;
   justify-content: center;
   color: var(--accent);
-  box-shadow: var(--shadow-1);
   transition: opacity 0.2s var(--ease);
 }
 
@@ -499,9 +492,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   letter-spacing: 0.3px;
   color: #ffffff;
   padding: 2px 6px;
-  border-radius: var(--radius-pill);
-  background: rgba(11, 15, 12, 0.72);
-  backdrop-filter: blur(2px);
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Selection overlay check on the thumbnail */
@@ -511,15 +503,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   top: 6px;
   width: 20px;
   height: 20px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 2px solid #ffffff;
-  background: rgba(11, 15, 12, 0.4);
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   color: transparent;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: background 0.16s var(--ease), transform 0.16s var(--ease);
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
 }
 
 .card.is-selected .check-overlay {
@@ -553,7 +545,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 }
 
 .card-title .muted {
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-muted);
 }
 
@@ -605,7 +597,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 .mini-btn:hover {
   color: var(--accent);
   border-color: var(--accent);
-  background: var(--grad-soft);
+  background: var(--accent-soft);
 }
 
 .mini-btn:active {
@@ -723,7 +715,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   height: 100%;
   width: 0%;
   border-radius: var(--radius-pill);
-  background: var(--grad);
+  background: var(--accent);
   transition: width 0.3s var(--ease);
 }
 
@@ -740,7 +732,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 }
 
 .app-footer a {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   text-decoration: none;
   border-bottom: 1.5px solid transparent;
@@ -754,7 +746,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 
 .footer-role {
   color: var(--text-faint);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Toast */
@@ -765,11 +757,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   transform: translate(-50%, 16px);
   max-width: 320px;
   padding: 10px 16px;
-  border-radius: var(--radius-pill);
-  background: #141815;
+  border-radius: var(--radius-sm);
+  background: #1a1a1a;
   color: #ffffff;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 500;
   box-shadow: var(--shadow-2);
   opacity: 0;
   pointer-events: none;
@@ -778,7 +770,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
 }
 
 html[data-theme="dark"] .toast {
-  background: #232a25;
+  background: #2c2c2c;
   border: 1px solid var(--border-strong);
 }
 

@@ -7,7 +7,7 @@
   "scripts": {
     "icons": "node assets/generate-icons.mjs"
   },
-  "author": "Muhammad Abdullah Awais (https://www.abdullahawais.com)",
+  "author": "Muhammad Abdullah Awais <contact@abdullahawais.com> (https://www.abdullahawais.com)",
   "license": "MIT",
   "devDependencies": {
     "sharp": "^0.33.5"

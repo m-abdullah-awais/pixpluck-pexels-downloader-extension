@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs>
-    <linearGradient id="ppGrad" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#10b981" />
-      <stop offset="1" stop-color="#0d9488" />
-    </linearGradient>
-    <linearGradient id="ppShine" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22" />
-      <stop offset="0.4" stop-color="#ffffff" stop-opacity="0" />
-    </linearGradient>
-  </defs>
-  <rect x="8" y="8" width="112" height="112" rx="34" fill="url(#ppGrad)" />
-  <rect x="8" y="8" width="112" height="112" rx="34" fill="url(#ppShine)" />
+  <!--
+    PixPluck mark. Flat Pexels green so the extension sits naturally alongside
+    pexels.com, with its own glyph (a pluck arrow dropping into a tray) rather
+    than any imitation of the Pexels logo.
+  -->
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="#05a081" />
   <circle cx="92" cy="39" r="6.5" fill="#ffffff" opacity="0.9" />
   <rect x="57" y="32" width="14" height="40" rx="7" fill="#ffffff" />
   <path d="M43 64 L85 64 L64 90 Z" fill="#ffffff" />
