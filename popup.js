@@ -32,6 +32,7 @@
   var progressText = document.getElementById("progressText");
   var progressCount = document.getElementById("progressCount");
   var progressBar = document.getElementById("progressBar");
+  var cancelBtn = document.getElementById("cancelBtn");
   var toastEl = document.getElementById("toast");
 
   // ---- state ----
@@ -528,34 +529,73 @@
     downloadItems(collectItems(kind, ids));
   });
 
+  // One port for the popup's lifetime. The worker may sleep and drop it, so it
+  // is rebuilt on demand rather than held onto blindly.
+  var port = null;
+  var cancelRequested = false;
+
+  function getPort() {
+    if (port) {
+      return port;
+    }
+    port = chrome.runtime.connect({ name: "pixpluck-downloads" });
+    port.onMessage.addListener(handleWorkerMessage);
+    port.onDisconnect.addListener(function () {
+      port = null;
+    });
+    return port;
+  }
+
+  function handleWorkerMessage(message) {
+    if (message.type === "progress") {
+      progressEl.hidden = false;
+      updateProgress(message.done, message.total);
+      return;
+    }
+    if (message.type !== "done" && message.type !== "cancelled") {
+      return;
+    }
+
+    updateProgress(message.done, message.total);
+    var saved = message.done - message.failed;
+
+    if (message.type === "cancelled") {
+      var skipped = message.total - message.done;
+      progressText.textContent = "Stopped";
+      toast("Stopped. " + saved + " saved, " + skipped + " skipped");
+    } else {
+      var suffix = message.failed ? " (" + message.failed + " failed)" : "";
+      toast("Saved " + saved + " of " + message.total + suffix, message.failed > 0);
+    }
+    setTimeout(hideProgress, 1400);
+  }
+
   function downloadItems(items) {
     if (!items || !items.length) {
       return;
     }
-    var port = chrome.runtime.connect({ name: "pixpluck-downloads" });
     showProgress(0, items.length);
-    port.onMessage.addListener(function (message) {
-      if (message.type === "progress") {
-        updateProgress(message.done, message.total);
-      } else if (message.type === "done") {
-        updateProgress(message.total, message.total);
-        var saved = message.total - message.failed;
-        var suffix = message.failed ? " (" + message.failed + " failed)" : "";
-        toast("Saved " + saved + " of " + message.total + suffix, message.failed > 0);
-        setTimeout(hideProgress, 1200);
-        port.disconnect();
-      }
-    });
-    port.postMessage({ type: "download", items: items });
+    getPort().postMessage({ type: "download", items: items });
   }
+
+  cancelBtn.addEventListener("click", function () {
+    cancelRequested = true;
+    cancelBtn.disabled = true;
+    progressText.textContent = "Stopping";
+    getPort().postMessage({ type: "cancel" });
+  });
 
   function showProgress(done, total) {
     progressEl.hidden = false;
+    cancelRequested = false;
+    cancelBtn.disabled = false;
     updateProgress(done, total);
   }
 
   function updateProgress(done, total) {
-    progressText.textContent = done >= total ? "Finishing up" : "Downloading";
+    if (!cancelRequested) {
+      progressText.textContent = done >= total ? "Finishing up" : "Downloading";
+    }
     progressCount.textContent = done + " / " + total;
     progressBar.style.width = total ? Math.round((done / total) * 100) + "%" : "0%";
   }
@@ -563,6 +603,8 @@
   function hideProgress() {
     progressEl.hidden = true;
     progressBar.style.width = "0%";
+    cancelRequested = false;
+    cancelBtn.disabled = false;
   }
 
   // ---- boot ----
@@ -573,4 +615,8 @@
     }
     switchTab(stored.lastTab === "image" ? "image" : "video");
   });
+
+  // If a batch is still running from an earlier popup session, show it again so
+  // it stays cancellable.
+  getPort().postMessage({ type: "status" });
 })();

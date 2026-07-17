@@ -24,6 +24,7 @@ It is built with plain HTML, CSS, and JavaScript. No frameworks, no trackers, no
 - **Copy or open.** Every card has a button to copy the direct link or open the file in a new tab.
 - **Light and dark themes.** Follows your system by default, and remembers your choice.
 - **Progress you can see.** A live progress bar tracks batch downloads.
+- **Cancel any time.** Grabbed a page with hundreds of clips by mistake? Hit **Cancel** and nothing further starts downloading.
 
 ## Install (load unpacked)
 
@@ -48,6 +49,8 @@ PixPluck is not on the Web Store yet, so you load it as an unpacked extension. I
    - Press **Download all** to grab everything on the page.
 
 Your files land in `Downloads/PixPluck`.
+
+While a batch is running you get a progress bar with a **Cancel** button next to it. Cancel stops the queue on the spot, so nothing new starts downloading. Files that already started keep going and finish normally, and you can manage those from Chrome's own downloads page. Downloads are queued one at a time with a short gap between them, so even a big page will not flood your machine.
 
 ## A note on video resolutions
 

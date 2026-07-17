@@ -1,13 +1,28 @@
 /*
  * PixPluck - background.js (service worker)
  *
- * Downloads are handled here rather than in the popup so a large "download all"
- * batch keeps going even after the popup window closes. The popup opens a port,
- * sends the list of files, and we stream progress back while it is still open.
+ * Downloads are handled here rather than in the popup so a large batch keeps
+ * going even after the popup window closes.
+ *
+ * Everything runs through one cancellable queue. That way a "download all" on a
+ * huge page can be stopped instantly, and pressing Download while a batch is
+ * already running just adds to the same queue instead of racing it.
  */
 
 const DOWNLOAD_FOLDER = "PixPluck";
 const STEP_DELAY_MS = 350;
+
+// The one active batch, or null when nothing is running.
+let current = null;
+
+// Post functions for every connected popup, so progress reaches whoever is open.
+const listeners = new Set();
+
+function broadcast(message) {
+  listeners.forEach(function (post) {
+    post(message);
+  });
+}
 
 function wait(ms) {
   return new Promise(function (resolve) {
@@ -40,25 +55,50 @@ function startDownload(url, filename) {
   });
 }
 
-async function runBatch(items, post) {
-  const total = items.length;
-  let done = 0;
-  let failed = 0;
+async function runQueue() {
+  if (!current || current.running) {
+    return;
+  }
+  current.running = true;
 
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
+  while (current.queue.length && !current.cancelled) {
+    const item = current.queue.shift();
     const ok = await startDownload(item.url, item.filename);
-    done += 1;
+    current.done += 1;
     if (!ok) {
-      failed += 1;
+      current.failed += 1;
     }
-    post({ type: "progress", done: done, total: total, failed: failed });
-    if (i < items.length - 1) {
+    broadcast({ type: "progress", done: current.done, total: current.total, failed: current.failed });
+
+    if (current.cancelled) {
+      break;
+    }
+    if (current.queue.length) {
       await wait(STEP_DELAY_MS);
     }
   }
 
-  post({ type: "done", total: total, failed: failed });
+  // Anything still queued is dropped here, so no further downloads ever start.
+  const summary = {
+    type: current.cancelled ? "cancelled" : "done",
+    done: current.done,
+    total: current.total,
+    failed: current.failed
+  };
+  current = null;
+  broadcast(summary);
+}
+
+function enqueue(items) {
+  if (!current) {
+    current = { queue: [], cancelled: false, running: false, done: 0, total: 0, failed: 0 };
+  }
+  items.forEach(function (item) {
+    current.queue.push(item);
+  });
+  current.total += items.length;
+  broadcast({ type: "progress", done: current.done, total: current.total, failed: current.failed });
+  runQueue();
 }
 
 chrome.runtime.onConnect.addListener(function (port) {
@@ -67,11 +107,8 @@ chrome.runtime.onConnect.addListener(function (port) {
   }
 
   let connected = true;
-  port.onDisconnect.addListener(function () {
-    connected = false;
-  });
 
-  // Posting to a closed port throws, so guard every send. Downloads still finish.
+  // Posting to a closed port throws, so guard every send.
   const post = function (message) {
     if (!connected) {
       return;
@@ -80,12 +117,33 @@ chrome.runtime.onConnect.addListener(function (port) {
       port.postMessage(message);
     } catch (err) {
       connected = false;
+      listeners.delete(post);
     }
   };
 
+  listeners.add(post);
+
+  port.onDisconnect.addListener(function () {
+    connected = false;
+    listeners.delete(post);
+  });
+
   port.onMessage.addListener(function (message) {
-    if (message && message.type === "download" && Array.isArray(message.items) && message.items.length) {
-      runBatch(message.items, post);
+    if (!message) {
+      return;
+    }
+    if (message.type === "download" && Array.isArray(message.items) && message.items.length) {
+      enqueue(message.items);
+    } else if (message.type === "cancel") {
+      if (current) {
+        current.cancelled = true;
+        current.queue.length = 0;
+      }
+    } else if (message.type === "status") {
+      // Lets a reopened popup pick a running batch back up.
+      if (current) {
+        post({ type: "progress", done: current.done, total: current.total, failed: current.failed });
+      }
     }
   });
 });
