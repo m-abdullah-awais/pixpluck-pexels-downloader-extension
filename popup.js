@@ -14,10 +14,12 @@
   var ICON_OPEN = '<svg viewBox="0 0 24 24" width="14" height="14"><path d="M14 4h6v6M20 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   var ICON_EMPTY = '<svg viewBox="0 0 64 64" width="52" height="52"><rect x="10" y="16" width="44" height="32" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="22" cy="28" r="4" fill="currentColor"/><path d="M14 46 L28 33 L37 41 L45 34 L50 39" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var ICON_WARN = '<svg viewBox="0 0 64 64" width="52" height="52"><path d="M32 10 58 52H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="32" y1="27" x2="32" y2="39" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><circle cx="32" cy="45" r="1.9" fill="currentColor"/></svg>';
+  var ICON_GLOBE = '<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="2.6"/><ellipse cx="32" cy="32" rx="10" ry="22" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="10" y1="32" x2="54" y2="32" stroke="currentColor" stroke-width="2.6"/><line x1="14" y1="21" x2="50" y2="21" stroke="currentColor" stroke-width="2.2"/><line x1="14" y1="43" x2="50" y2="43" stroke="currentColor" stroke-width="2.2"/></svg>';
 
   // ---- element references ----
   var themeToggle = document.getElementById("themeToggle");
   var tabsEl = document.querySelector(".tabs");
+  var toolbarEl = document.querySelector(".toolbar");
   var tabButtons = Array.prototype.slice.call(document.querySelectorAll(".tab"));
   var fetchBtn = document.getElementById("fetchBtn");
   var fetchLabel = document.getElementById("fetchLabel");
@@ -174,6 +176,38 @@
     results.innerHTML = "";
     results.appendChild(node);
     subbar.hidden = true;
+  }
+
+  // Shows the normal interactive UI (used when the active tab is a Pexels page).
+  function showMainUi() {
+    tabsEl.hidden = false;
+    toolbarEl.hidden = false;
+  }
+
+  // Shown when the popup is opened on any page that is not Pexels. It hides the
+  // fetch and download controls entirely and offers a link to open Pexels.
+  function showOffSiteGate() {
+    tabsEl.hidden = true;
+    toolbarEl.hidden = true;
+    subbar.hidden = true;
+    progressEl.hidden = true;
+
+    var wrap = el("div", { class: "state" }, [
+      el("div", { class: "state-art", html: ICON_GLOBE }),
+      el("h2", { text: "Open Pexels to get started" }),
+      el("p", { html: "PixPluck works on <strong>pexels.com</strong>. Head over, find the videos or images you want, then open PixPluck again." })
+    ]);
+    var action = el("div", { class: "gate-action" });
+    var go = el("button", { class: "btn btn-primary", type: "button", html: ICON_OPEN + "<span>Go to Pexels</span>" });
+    go.addEventListener("click", function () {
+      chrome.tabs.create({ url: "https://www.pexels.com/" });
+      window.close();
+    });
+    action.appendChild(go);
+    wrap.appendChild(action);
+
+    results.innerHTML = "";
+    results.appendChild(wrap);
   }
 
   function buildState(iconHtml, title, text) {
@@ -608,15 +642,27 @@
   }
 
   // ---- boot ----
-  applyTheme(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  // Light is the default. If the user has toggled the theme before, that saved
+  // choice is applied instead.
+  applyTheme("light");
   chrome.storage.local.get(["theme", "lastTab"], function (stored) {
     if (stored.theme) {
       applyTheme(stored.theme);
     }
-    switchTab(stored.lastTab === "image" ? "image" : "video");
+    // The full interface only makes sense on Pexels. Anywhere else, show a gate
+    // that points the user to the site instead.
+    getActiveTab().then(function (tab) {
+      if (tab && isPexels(tab.url)) {
+        showMainUi();
+        switchTab(stored.lastTab === "image" ? "image" : "video");
+        // If a batch is still running from an earlier popup session, show it
+        // again so it stays cancellable.
+        getPort().postMessage({ type: "status" });
+      } else {
+        showOffSiteGate();
+      }
+    }).catch(function () {
+      showOffSiteGate();
+    });
   });
-
-  // If a batch is still running from an earlier popup session, show it again so
-  // it stays cancellable.
-  getPort().postMessage({ type: "status" });
 })();

@@ -69,6 +69,12 @@ html[data-theme="dark"] {
   box-sizing: border-box;
 }
 
+/* The hidden attribute must always win, even over the flex/grid display rules
+   below. Without this, the action bar would stay visible with no results. */
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   margin: 0;
@@ -421,6 +427,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   color: var(--text);
 }
 
+.gate-action {
+  margin-top: var(--space-4);
+}
+
+.gate-action .btn {
+  padding: 0 20px;
+  height: 40px;
+}
+
 /* Media card */
 .card {
   position: relative;
@@ -731,22 +746,24 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   color: var(--text-muted);
 }
 
-.app-footer a {
-  font-weight: 600;
+.footer-name {
+  font-weight: 700;
   color: var(--text);
-  text-decoration: none;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.18s var(--ease), color 0.18s var(--ease);
+  font-size: 12px;
 }
 
-.app-footer a:hover {
+.footer-site {
+  font-weight: 600;
+  font-size: 11px;
   color: var(--accent);
-  border-color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.18s var(--ease);
 }
 
-.footer-role {
-  color: var(--text-faint);
-  font-weight: 400;
+.footer-site:hover {
+  border-color: var(--accent);
 }
 
 /* Toast */
