@@ -73,55 +73,78 @@ It stays out of your way too. It only wakes up on pexels.com, it has no account,
 
 ---
 
-## Install
+## Installation
 
-PixPluck is not on the Chrome Web Store yet, so you load it as an unpacked extension. It takes about a minute.
+PixPluck is not on the Chrome Web Store yet, so you load it as an unpacked extension. There is no build step and nothing to compile, so the whole thing takes about a minute.
 
-**1. Get the files**
+### Step 1: Download the extension
 
-Download this repository as a ZIP and unzip it, or clone it:
+Grab the code one of two ways.
 
-```bash
-git clone https://github.com/m-abdullah-awais/pixpluck-pexels-downloader-extension.git
-```
+- **The easy way:** click the green **Code** button at the top of this repository, choose **Download ZIP**, then unzip it to a folder you will remember.
+- **With git:**
 
-**2. Open your extensions page**
+  ```bash
+  git clone https://github.com/m-abdullah-awais/pixpluck-pexels-downloader-extension.git
+  ```
 
-| Browser | Address |
+### Step 2: Open your browser's extensions page
+
+Type the address for your browser into the address bar and press Enter.
+
+| Browser | Address to open |
 | --- | --- |
 | Chrome | `chrome://extensions` |
 | Edge | `edge://extensions` |
 | Brave | `brave://extensions` |
 
-**3. Turn on Developer mode**
+### Step 3: Turn on Developer mode
 
-The toggle sits in the top right corner of that page.
+Flip the **Developer mode** switch in the top right corner of that page. This is what lets you run an unpacked extension.
 
-**4. Load it**
+### Step 4: Load PixPluck
 
-Click **Load unpacked** and select the project folder (the one with `manifest.json` in it).
+Click **Load unpacked**, then select the extension folder (the one that has `manifest.json` inside it). PixPluck appears in your list right away, ready to use.
 
-**5. Pin it**
+### Step 5 (optional): Pin it to your toolbar
 
-Click the puzzle piece icon in your toolbar and pin PixPluck so it is always one click away.
+Click the puzzle piece icon in your browser toolbar, find PixPluck, and click the pin next to it. Now its icon sits in your toolbar so it is always one click away. You can skip this, but pinning makes it much quicker to reach.
 
-That is it. There is no build step and nothing to compile.
+> You are done. PixPluck is installed and ready. Head to the next section to start grabbing media.
 
 ---
 
 ## How to use it
 
-1. Go to any Pexels page. A search results page, a video page, or a photo page all work.
-2. If you are on a grid of results, scroll down a bit first so the page loads more items.
-3. Click the PixPluck icon in your toolbar.
-4. Choose the **Videos** or **Images** tab and press **Fetch**.
-5. Browse the previews. For a video, pick a resolution from the dropdown.
-6. Download whichever way suits you:
-   - Press **Download** on a single card.
-   - Tap thumbnails to select several, then press **Download selected**.
-   - Press **Download all** to take everything on the page.
+### Step 1: Open a Pexels page
 
-Your files land in `Downloads/PixPluck`.
+Go to any page on [pexels.com](https://www.pexels.com). A search results page, a single video page, or a photo page all work.
+
+### Step 2: Load more results (optional)
+
+If you are on a grid of search results, scroll down a bit first. Pexels loads items as you scroll, and PixPluck grabs whatever the page has loaded, so a quick scroll means more to choose from.
+
+### Step 3: Open PixPluck
+
+Click the PixPluck icon in your toolbar. If you did not pin it, click the puzzle piece icon first and pick PixPluck from the list.
+
+### Step 4: Choose a tab and fetch
+
+Pick the **Videos** or **Images** tab, then press **Fetch**. PixPluck reads the page and lists everything it finds, with previews.
+
+### Step 5: Preview and pick your quality
+
+Browse the previews. Hover a video thumbnail to play it. For videos, choose the resolution you want from the dropdown (it defaults to the highest available).
+
+### Step 6: Download
+
+Grab your media whichever way suits you.
+
+- Press **Download** on a single card to save just that one.
+- Tap thumbnails to select several, then press **Download selected**.
+- Press **Download all** to take everything on the page at once.
+
+Your files land in a `PixPluck` folder inside your Downloads.
 
 ### About that Cancel button
 
