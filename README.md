@@ -1,17 +1,17 @@
 <div align="center">
 
-<img src="icons/icon128.png" width="92" alt="PixPluck logo" />
+<img src="icons/icon128.png" width="96" alt="PixPluck logo" />
 
 # PixPluck
 
-### Preview and download Pexels videos and images in one click.
+**Grab any video or image from Pexels, in a single click.**
 
-A lightweight Chrome and Edge extension that pulls every video and image out of a Pexels page, shows you real previews, and downloads one, some, or all of them. No link hunting, no sketchy websites, no sign up.
+PixPluck is a small, no-nonsense browser extension for Chrome and Edge. It reads the Pexels page you are on, shows you every video and image with real previews, and lets you download one, a few, or all of them at once. No hunting for links, no detour sites, no sign up.
 
 <p>
   <img src="https://img.shields.io/badge/version-1.0.0-05A081?style=flat-square" alt="Version 1.0.0" />
-  <img src="https://img.shields.io/badge/Manifest-V3-05A081?style=flat-square" alt="Manifest V3" />
-  <img src="https://img.shields.io/badge/built%20with-Vanilla%20JS-05A081?style=flat-square" alt="Built with Vanilla JS" />
+  <img src="https://img.shields.io/badge/manifest-v3-05A081?style=flat-square" alt="Manifest V3" />
+  <img src="https://img.shields.io/badge/built%20with-vanilla%20JS-05A081?style=flat-square" alt="Built with Vanilla JS" />
   <img src="https://img.shields.io/badge/license-MIT-05A081?style=flat-square" alt="MIT License" />
   <img src="https://img.shields.io/badge/Chrome%20%7C%20Edge-supported-05A081?style=flat-square" alt="Chrome and Edge supported" />
 </p>
@@ -20,56 +20,60 @@ A lightweight Chrome and Edge extension that pulls every video and image out of 
 
 ---
 
-## A look inside
+## See it in action
+
+<div align="center">
 
 <table>
   <tr>
-    <td align="center" width="33%">
-      <img src="screenshots/videos-light.png" alt="PixPluck videos tab in light theme" />
-      <br /><sub><b>Videos tab, light theme</b></sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="screenshots/images-dark.png" alt="PixPluck images tab in dark theme" />
-      <br /><sub><b>Images tab, dark theme</b></sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="screenshots/downloading.png" alt="PixPluck downloading a batch with a cancel button" />
-      <br /><sub><b>Batch download, with Cancel</b></sub>
-    </td>
+    <td align="center" width="33%"><img src="screenshots/videos-light.png" alt="Videos tab, light theme" /></td>
+    <td align="center" width="33%"><img src="screenshots/images-dark.png" alt="Images tab, dark theme" /></td>
+    <td align="center" width="33%"><img src="screenshots/downloading.png" alt="Downloading a batch with a cancel button" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Videos, light theme</b></sub></td>
+    <td align="center"><sub><b>Images, dark theme</b></sub></td>
+    <td align="center"><sub><b>Batch download with cancel</b></sub></td>
   </tr>
 </table>
 
+</div>
+
 ---
 
-## Why you might want it
+## Why I built it
 
-Grabbing media off Pexels normally means opening each item, clicking through to a download page, and picking a size one at a time. If you need twenty clips for a project, that is twenty round trips. PixPluck turns that into one click.
+Grabbing stock footage from Pexels had quietly become a chore. Every clip meant opening a new tab, clicking through to its download page, choosing a size, then repeating the whole dance for the next one. Pulling together twenty clips for a single project was twenty little errands.
 
-| What usually happens | With PixPluck |
+PixPluck collapses all of that into one click. It sits quietly in your toolbar, wakes up only on Pexels, and hands you everything on the page at once, ready to save. That is the whole idea: less clicking, more doing.
+
+---
+
+## What it does for you
+
+| The usual way | With PixPluck |
 | --- | --- |
-| Open every item in a new tab | Everything on the page is listed at once |
-| Guess which file you are getting | See a real preview before you commit |
-| Take whatever resolution is offered | Pick the exact resolution from a dropdown |
-| Download one file at a time | Download one, a selection, or the whole page |
-| No way to stop a big batch | Hit **Cancel** and it stops on the spot |
+| Open each item in its own tab | Everything on the page, listed at once |
+| Guess what you are about to download | See a real preview first |
+| Take whatever size is offered | Pick the exact resolution yourself |
+| Save files one at a time | Save one, a selection, or the whole page |
+| No way to stop a large batch | One button stops it instantly |
 | Copy links by hand | Copy a direct link or open it in a tab |
-
-It stays out of your way too. It only wakes up on pexels.com, it has no account, no analytics, and no server of its own.
 
 ---
 
 ## Features
 
-- **Two clean tabs.** Videos and Images, so you always know what you are grabbing.
-- **Real previews.** Images show a thumbnail. Videos play a muted preview when you hover the thumbnail.
-- **Quality picker.** Every resolution PixPluck can find, in a dropdown, defaulting to the highest.
-- **Pick and choose.** Tap thumbnails to select, or use Select all, then Download selected.
-- **Download all.** Grab the whole page in one go.
-- **Cancel any time.** Nothing further starts downloading the moment you press it.
-- **Search and filter.** Narrow the results by id or resolution.
-- **Copy link or open in a tab.** For when you want the URL, not the file.
-- **Light and dark themes.** Follows your system, and remembers your choice.
-- **Tidy downloads.** Everything lands in a `PixPluck` folder, named clearly.
+- **Two clear tabs.** Videos and Images live side by side, so you always know what you are collecting.
+- **Real previews.** Photos show a thumbnail, and videos play a muted preview the moment you hover them.
+- **Every resolution.** For videos, a dropdown lists each size PixPluck can find and defaults to the sharpest one.
+- **Download your way.** Save a single item, tick a few and grab the selection, or take the entire page in one go.
+- **A real stop button.** Started a huge batch by accident? Press Cancel and nothing else begins downloading.
+- **Search and filter.** Narrow a long list of results by id or resolution.
+- **Copy or open.** Every item has a button to copy its direct link or open it in a new tab.
+- **Light and dark themes.** It follows your system automatically and remembers if you change it.
+- **Tidy by default.** Everything lands in a neatly named `PixPluck` folder inside your Downloads.
+- **Genuinely private.** No account, no analytics, no server of its own. Nothing about you ever leaves your browser.
 
 ---
 
@@ -79,9 +83,9 @@ PixPluck is not on the Chrome Web Store yet, so you load it as an unpacked exten
 
 ### Step 1: Download the extension
 
-Grab the code one of two ways.
+Get the code whichever way is easier for you.
 
-- **The easy way:** click the green **Code** button at the top of this repository, choose **Download ZIP**, then unzip it to a folder you will remember.
+- **The simple way:** click the green **Code** button near the top of this page, choose **Download ZIP**, then unzip it somewhere you will remember.
 - **With git:**
 
   ```bash
@@ -90,9 +94,9 @@ Grab the code one of two ways.
 
 ### Step 2: Open your browser's extensions page
 
-Type the address for your browser into the address bar and press Enter.
+Type the matching address into your address bar and press Enter.
 
-| Browser | Address to open |
+| Browser | Address |
 | --- | --- |
 | Chrome | `chrome://extensions` |
 | Edge | `edge://extensions` |
@@ -100,17 +104,17 @@ Type the address for your browser into the address bar and press Enter.
 
 ### Step 3: Turn on Developer mode
 
-Flip the **Developer mode** switch in the top right corner of that page. This is what lets you run an unpacked extension.
+Flip the **Developer mode** switch in the top right corner. This is what lets a browser run an unpacked extension.
 
 ### Step 4: Load PixPluck
 
-Click **Load unpacked**, then select the extension folder (the one that has `manifest.json` inside it). PixPluck appears in your list right away, ready to use.
+Click **Load unpacked**, then choose the extension folder (the one that has `manifest.json` inside it). PixPluck shows up in your list straight away.
 
 ### Step 5 (optional): Pin it to your toolbar
 
-Click the puzzle piece icon in your browser toolbar, find PixPluck, and click the pin next to it. Now its icon sits in your toolbar so it is always one click away. You can skip this, but pinning makes it much quicker to reach.
+Click the puzzle piece icon in your toolbar, find PixPluck, and click the pin beside it. Its icon now stays in your toolbar, always a single click away. You can skip this, but pinning makes it far quicker to reach.
 
-> You are done. PixPluck is installed and ready. Head to the next section to start grabbing media.
+> That is it. PixPluck is installed and ready. On to the fun part.
 
 ---
 
@@ -118,86 +122,83 @@ Click the puzzle piece icon in your browser toolbar, find PixPluck, and click th
 
 ### Step 1: Open a Pexels page
 
-Go to any page on [pexels.com](https://www.pexels.com). A search results page, a single video page, or a photo page all work.
+Head to any page on [pexels.com](https://www.pexels.com). Search results, a single video, or a photo page all work.
 
 ### Step 2: Load more results (optional)
 
-If you are on a grid of search results, scroll down a bit first. Pexels loads items as you scroll, and PixPluck grabs whatever the page has loaded, so a quick scroll means more to choose from.
+On a grid of search results, scroll down a little first. Pexels loads items as you scroll, and PixPluck grabs whatever the page has loaded, so a quick scroll gives you more to choose from.
 
 ### Step 3: Open PixPluck
 
-Click the PixPluck icon in your toolbar. If you did not pin it, click the puzzle piece icon first and pick PixPluck from the list.
+Click the PixPluck icon in your toolbar. If you did not pin it, click the puzzle piece icon first and pick it from the list.
 
 ### Step 4: Choose a tab and fetch
 
-Pick the **Videos** or **Images** tab, then press **Fetch**. PixPluck reads the page and lists everything it finds, with previews.
+Select the **Videos** or **Images** tab, then press **Fetch**. PixPluck reads the page and lays out everything it finds, each with a preview.
 
-### Step 5: Preview and pick your quality
+### Step 5: Preview and choose a quality
 
-Browse the previews. Hover a video thumbnail to play it. For videos, choose the resolution you want from the dropdown (it defaults to the highest available).
+Browse the results. Hover any video to watch a quick preview. For videos, pick the resolution you want from the dropdown, which starts on the highest available.
 
 ### Step 6: Download
 
-Grab your media whichever way suits you.
+Save your media whichever way suits the moment.
 
-- Press **Download** on a single card to save just that one.
-- Tap thumbnails to select several, then press **Download selected**.
-- Press **Download all** to take everything on the page at once.
+- Press **Download** on a card to save just that one.
+- Tick a few thumbnails, then press **Download selected**.
+- Press **Download all** to take the whole page at once.
 
 Your files land in a `PixPluck` folder inside your Downloads.
 
-### About that Cancel button
+---
 
-While a batch runs you get a progress bar and a **Cancel** button. Downloads are queued one at a time with a short gap between them, so a big page never floods your machine. Press Cancel and the queue stops immediately, so nothing new begins. Files that already started will finish on their own, and you can manage those from your browser's downloads page.
+## Good to know
 
-### A note on video resolutions
+**The Cancel button.** While a batch runs, you get a progress bar with a **Cancel** button beside it. Downloads are queued one at a time with a small gap between them, so even a big page never floods your machine. Press Cancel and the queue stops on the spot. Files that already started will finish on their own, and you can manage those from your browser's own downloads page.
 
-Pexels serves each video in several sizes, from 360p up to 4K. On a video's own page the full list is usually available, so the quality dropdown fills up nicely. On a busy grid of search results the page often only exposes the preview quality, so a clip there may show a single option. If you want every resolution for one specific clip, open that clip's own page and fetch again.
+**Video resolutions.** Pexels offers each video in several sizes, from 360p up to 4K. On a video's own page the full list is usually available, so the quality dropdown fills right up. On a busy search grid, the page often only exposes the preview size, so a clip there may show a single option. Want every resolution for one specific clip? Open that clip's own page and fetch again.
 
 ---
 
-## Permissions, and why each one exists
+## Permissions and privacy
 
-PixPluck asks for the smallest set it can, and nothing more.
+PixPluck asks for the smallest set of permissions it possibly can, and nothing beyond them.
 
 | Permission | Why it is needed |
 | --- | --- |
-| Access to `pexels.com` pages | To read the media on the page you are looking at. It cannot touch any other site. |
-| `downloads` | To save the files you choose. |
-| `storage` | To remember your theme and last used tab. |
+| Access to `pexels.com` pages | To read the media on the page you are viewing. It cannot touch any other site. |
+| Downloads | To save the files you choose. |
+| Storage | To remember your theme and last used tab. |
 
----
-
-## Privacy
-
-Everything runs on your machine. PixPluck has no server, no analytics, no tracking, and no account. Nothing about you or what you download ever leaves your browser. The only network requests are the ordinary ones your browser makes to fetch the previews and the files you asked for.
+Everything runs on your own machine. There is no server behind PixPluck, no analytics, and no tracking of any kind. The only network requests are the ordinary ones your browser makes to load the previews and the files you asked for.
 
 ---
 
 ## FAQ
 
 **Does this work on sites other than Pexels?**
-No, and that is on purpose. It only has permission for pexels.com.
+No, and that is by design. It only has permission for pexels.com and stays dormant everywhere else.
 
 **Why does a video only show one resolution?**
 You are most likely on a search grid, which only loads the preview file. Open that clip's own page and fetch again to see every size.
 
-**Why did nothing show up?**
-The page may still have been loading, or you may be on a page with no media. Scroll a little, then press Fetch again.
+**Nothing showed up when I pressed Fetch. Why?**
+The page may still have been loading, or it may simply have no media on it. Scroll down a little and try again.
 
 **Can I use these files commercially?**
-That is between you and the [Pexels License](https://www.pexels.com/license/), not this tool. Pexels content is free to use with generous terms, but please read it and credit creators when you can.
+That is between you and the [Pexels License](https://www.pexels.com/license/), not this tool. Pexels content is free to use under generous terms, but please read the license and credit creators where you can.
 
-**Will it slow down my computer if I download a whole page?**
-No. Downloads are queued one at a time with a gap between them, and you can stop the queue at any moment with Cancel.
+**Will downloading a whole page slow down my computer?**
+No. Downloads are queued one at a time with a short gap between them, and you can stop the queue at any moment with Cancel.
 
 ---
 
-## Tech notes
+## For developers
 
-- Manifest V3, plain HTML, CSS, and JavaScript. No framework, no bundler, no build step.
-- The popup injects a small self contained scraper into the active tab with `chrome.scripting.executeScript`, then renders whatever it returns.
-- Downloads run through a cancellable queue in the background service worker, so a batch keeps going even if you close the popup, and one Cancel stops everything.
+PixPluck is built with plain HTML, CSS, and JavaScript on Manifest V3. No framework, no bundler, no build step for the shipped code.
+
+- The popup injects a small, self contained scraper into the active tab with `chrome.scripting.executeScript`, then renders whatever it returns.
+- Downloads run through a cancellable queue in the background service worker, so a batch keeps going even if you close the popup, and a single Cancel stops everything.
 - The only dev time dependency is `sharp`, used once to turn `assets/logo.master.svg` into the PNG icon set.
 
 Regenerate the icons after editing the logo:
@@ -214,7 +215,7 @@ node assets/parser.test.mjs   # checks the media parser
 node assets/queue.test.mjs    # checks the download queue and cancel
 ```
 
-### Project layout
+**Project layout**
 
 ```
 manifest.json     extension manifest (MV3)
@@ -230,6 +231,16 @@ screenshots/      images used in this README
 
 ---
 
+## Contributing
+
+Issues and pull requests are genuinely welcome. If you hit a Pexels page where the fetch comes up short, [open an issue](https://github.com/m-abdullah-awais/pixpluck-pexels-downloader-extension/issues) with the URL and I will take a look.
+
+## License
+
+Released under the [MIT License](LICENSE). Use it, learn from it, build on it.
+
+---
+
 <div align="center">
 
 ## The developer
@@ -240,9 +251,9 @@ screenshots/      images used in this README
 
 **Full Stack Developer**
 
-I build fast, clean, practical tools that solve a real annoyance. PixPluck came out of one: needing a pile of stock clips for a project and not wanting to click through fifty download pages to get them.
+I build fast, clean, practical tools that scratch a real itch. PixPluck came straight out of one of mine: needing a pile of stock clips and not wanting to click through fifty download pages to get them. If it saves you some of that time too, that makes my day.
 
-🌐 [www.abdullahawais.com](https://www.abdullahawais.com) &nbsp;•&nbsp; 📧 [contact@abdullahawais.com](mailto:contact@abdullahawais.com)
+🌐 [www.abdullahawais.com](https://www.abdullahawais.com) &nbsp;&nbsp;|&nbsp;&nbsp; 📧 [contact@abdullahawais.com](mailto:contact@abdullahawais.com)
 
 <p>
   <a href="https://www.abdullahawais.com"><img src="https://img.shields.io/badge/Website-05A081?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website" /></a>
@@ -257,25 +268,11 @@ I build fast, clean, practical tools that solve a real annoyance. PixPluck came 
 
 ---
 
-## Contributing
-
-Issues and pull requests are welcome. If you hit a Pexels page where the fetch comes up short, [open an issue](https://github.com/m-abdullah-awais/pixpluck-pexels-downloader-extension/issues) with the URL and I will take a look.
-
-## License
-
-Released under the [MIT License](LICENSE). Use it, learn from it, build on it.
-
-## Disclaimer
-
-> PixPluck is an independent, unofficial tool. It is not affiliated with, endorsed by, or connected to Pexels in any way. Pexels and the Pexels logo are trademarks of their respective owner. PixPluck only helps you download media you are already free to use, so please follow the [Pexels License](https://www.pexels.com/license/) and credit creators where you can.
-
----
-
 <div align="center">
 
 ### Found PixPluck useful?
 
-Star the repo, it genuinely helps other people find it.
+If it saved you some time, a star on the repo genuinely helps other people find it.
 
 <a href="https://github.com/m-abdullah-awais/pixpluck-pexels-downloader-extension">
   <img src="https://img.shields.io/github/stars/m-abdullah-awais/pixpluck-pexels-downloader-extension?style=for-the-badge&logo=github&color=05A081&labelColor=181717" alt="Star this repo on GitHub" />
@@ -285,5 +282,10 @@ Star the repo, it genuinely helps other people find it.
 <br />
 
 <sub>Built with care by <a href="https://www.abdullahawais.com"><b>Muhammad Abdullah Awais</b></a></sub>
+
+<br />
+<br />
+
+<sub><b>Not affiliated with Pexels.</b> PixPluck is an independent, unofficial tool and is not endorsed by or connected to Pexels in any way. Pexels and the Pexels logo are trademarks of their respective owner. It only helps you download media you are already free to use, so please follow the <a href="https://www.pexels.com/license/">Pexels License</a> and credit creators where you can.</sub>
 
 </div>
