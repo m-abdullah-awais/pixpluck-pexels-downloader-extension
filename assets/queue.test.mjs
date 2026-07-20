@@ -25,7 +25,7 @@ function loadWorker() {
     },
     downloads: {
       download: function (opts, cb) {
-        state.started.push(opts.filename);
+        state.started.push(opts);
         const id = state.started.length;
         setTimeout(function () {
           cb(id);
@@ -102,6 +102,35 @@ check("cancel summary reports fewer done than total", summary.length === 1 && su
 const settled = state.started.length;
 await sleep(700);
 check("queue stays stopped", state.started.length === settled);
+
+// ---- destination folder + saveAs ----
+console.log("");
+console.log("save location:");
+
+const two = [
+  { url: "https://images.pexels.com/photos/1/pexels-photo-1.jpeg", filename: "pexels-photo-1.jpeg" },
+  { url: "https://images.pexels.com/photos/2/pexels-photo-2.jpeg", filename: "pexels-photo-2.jpeg" }
+];
+
+const s2 = loadWorker();
+const p2 = connect(s2);
+p2.receive({ type: "download", items: two, folder: "My Clips/Pexels", saveAs: true });
+await sleep(1200);
+check("files go into the chosen subfolder", s2.started.every(function (o) { return o.filename.indexOf("My Clips/Pexels/") === 0; }));
+check("saveAs flag is passed through", s2.started.every(function (o) { return o.saveAs === true; }));
+
+const s3 = loadWorker();
+const p3 = connect(s3);
+p3.receive({ type: "download", items: two, folder: "", saveAs: false });
+await sleep(1200);
+check("empty folder saves straight to Downloads", s3.started.every(function (o) { return o.filename.indexOf("/") === -1; }));
+check("saveAs defaults to false", s3.started.every(function (o) { return o.saveAs === false; }));
+
+const s4 = loadWorker();
+const p4 = connect(s4);
+p4.receive({ type: "download", items: [two[0]], folder: "../../etc", saveAs: false });
+await sleep(800);
+check("path traversal is stripped", s4.started[0] && s4.started[0].filename.indexOf("..") === -1);
 
 console.log("");
 console.log("started " + settled + " of " + items.length + " before cancel took effect");

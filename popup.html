@@ -24,25 +24,49 @@
             <p>Pexels media grabber</p>
           </div>
         </div>
-        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
-          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2" fill="currentColor" />
-            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="12" y1="2.5" x2="12" y2="5.2" />
-              <line x1="12" y1="18.8" x2="12" y2="21.5" />
-              <line x1="2.5" y1="12" x2="5.2" y2="12" />
-              <line x1="18.8" y1="12" x2="21.5" y2="12" />
-              <line x1="5.2" y1="5.2" x2="7.1" y2="7.1" />
-              <line x1="16.9" y1="16.9" x2="18.8" y2="18.8" />
-              <line x1="5.2" y1="18.8" x2="7.1" y2="16.9" />
-              <line x1="16.9" y1="7.1" x2="18.8" y2="5.2" />
-            </g>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z" fill="currentColor" />
-          </svg>
-        </button>
+        <div class="header-actions">
+          <button id="settingsToggle" class="icon-btn" type="button" aria-label="Save location settings" title="Save location" aria-expanded="false" aria-controls="settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+              <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="12" y1="2.5" x2="12" y2="5.2" />
+                <line x1="12" y1="18.8" x2="12" y2="21.5" />
+                <line x1="2.5" y1="12" x2="5.2" y2="12" />
+                <line x1="18.8" y1="12" x2="21.5" y2="12" />
+                <line x1="5.2" y1="5.2" x2="7.1" y2="7.1" />
+                <line x1="16.9" y1="16.9" x2="18.8" y2="18.8" />
+                <line x1="5.2" y1="18.8" x2="7.1" y2="16.9" />
+                <line x1="16.9" y1="7.1" x2="18.8" y2="5.2" />
+              </g>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
       </header>
+
+      <section class="settings" id="settings" hidden>
+        <div class="setting-block">
+          <span class="setting-title">Save location</span>
+          <div class="folder-row">
+            <span class="folder-prefix">Downloads</span>
+            <span class="folder-sep">/</span>
+            <input id="folderInput" class="folder-input" type="text" placeholder="optional subfolder" spellcheck="false" autocomplete="off" aria-label="Subfolder inside your Downloads folder" />
+          </div>
+          <p class="setting-hint">Files save inside your Downloads folder. Leave this empty to save straight to Downloads.</p>
+        </div>
+        <label class="setting-check">
+          <input type="checkbox" id="askWhere" />
+          <span>Ask where to save each file</span>
+        </label>
+        <p class="setting-hint">Opens a folder picker for every file, so you can choose any location. Best when saving one at a time.</p>
+      </section>
 
       <nav class="tabs" role="tablist" aria-label="Media type">
         <button class="tab is-active" data-tab="video" role="tab" aria-selected="true" type="button">Videos</button>

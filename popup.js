@@ -18,6 +18,10 @@
 
   // ---- element references ----
   var themeToggle = document.getElementById("themeToggle");
+  var settingsToggle = document.getElementById("settingsToggle");
+  var settingsPanel = document.getElementById("settings");
+  var folderInput = document.getElementById("folderInput");
+  var askWhere = document.getElementById("askWhere");
   var tabsEl = document.querySelector(".tabs");
   var toolbarEl = document.querySelector(".toolbar");
   var tabButtons = Array.prototype.slice.call(document.querySelectorAll(".tab"));
@@ -93,6 +97,21 @@
     var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     applyTheme(next);
     chrome.storage.local.set({ theme: next });
+  });
+
+  // ---- settings (save location) ----
+  settingsToggle.addEventListener("click", function () {
+    var willOpen = settingsPanel.hidden;
+    settingsPanel.hidden = !willOpen;
+    settingsToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  });
+
+  folderInput.addEventListener("change", function () {
+    chrome.storage.local.set({ downloadFolder: folderInput.value.trim() });
+  });
+
+  askWhere.addEventListener("change", function () {
+    chrome.storage.local.set({ askWhere: askWhere.checked });
   });
 
   // ---- tabs ----
@@ -609,7 +628,12 @@
       return;
     }
     showProgress(0, items.length);
-    getPort().postMessage({ type: "download", items: items });
+    getPort().postMessage({
+      type: "download",
+      items: items,
+      folder: folderInput.value.trim(),
+      saveAs: askWhere.checked
+    });
   }
 
   cancelBtn.addEventListener("click", function () {
@@ -645,10 +669,14 @@
   // Light is the default. If the user has toggled the theme before, that saved
   // choice is applied instead.
   applyTheme("light");
-  chrome.storage.local.get(["theme", "lastTab"], function (stored) {
+  chrome.storage.local.get(["theme", "lastTab", "downloadFolder", "askWhere"], function (stored) {
     if (stored.theme) {
       applyTheme(stored.theme);
     }
+    if (typeof stored.downloadFolder === "string") {
+      folderInput.value = stored.downloadFolder;
+    }
+    askWhere.checked = !!stored.askWhere;
     // The full interface only makes sense on Pexels. Anywhere else, show a gate
     // that points the user to the site instead.
     getActiveTab().then(function (tab) {

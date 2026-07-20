@@ -72,7 +72,7 @@ PixPluck collapses all of that into one click. It sits quietly in your toolbar, 
 - **Search and filter.** Narrow a long list of results by id or resolution.
 - **Copy or open.** Every item has a button to copy its direct link or open it in a new tab.
 - **Light and dark themes.** It follows your system automatically and remembers if you change it.
-- **Tidy by default.** Everything lands in a neatly named `PixPluck` folder inside your Downloads.
+- **Choose where files go.** By default they save straight to your Downloads folder. Set a subfolder to keep things tidy, or turn on "ask where to save" to pick any location per file.
 - **Genuinely private.** No account, no analytics, no server of its own. Nothing about you ever leaves your browser.
 
 ---
@@ -148,11 +148,13 @@ Save your media whichever way suits the moment.
 - Tick a few thumbnails, then press **Download selected**.
 - Press **Download all** to take the whole page at once.
 
-Your files land in a `PixPluck` folder inside your Downloads.
+By default your files land straight in your Downloads folder. You can change that in the next section.
 
 ---
 
 ## Good to know
+
+**Choosing where files save.** Click the folder icon in the top right of the popup to open the save location settings. Type a name to save into a subfolder of your Downloads, for example `Pexels Clips`, or leave it empty to save directly to Downloads. If you would rather pick any folder on your computer, turn on "Ask where to save each file" and your browser will show a folder picker for each download. Browsers only let extensions save inside your Downloads folder automatically, which is why choosing a location outside it uses the picker.
 
 **The Cancel button.** While a batch runs, you get a progress bar with a **Cancel** button beside it. Downloads are queued one at a time with a small gap between them, so even a big page never floods your machine. Press Cancel and the queue stops on the spot. Files that already started will finish on their own, and you can manage those from your browser's own downloads page.
 

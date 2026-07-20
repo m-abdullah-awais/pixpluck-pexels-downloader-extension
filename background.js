@@ -9,7 +9,6 @@
  * already running just adds to the same queue instead of racing it.
  */
 
-const DOWNLOAD_FOLDER = "PixPluck";
 const STEP_DELAY_MS = 350;
 
 // The one active batch, or null when nothing is running.
@@ -35,14 +34,31 @@ function safeName(name) {
   return String(name || "file").replace(/[\\/:*?"<>|]+/g, "-").replace(/\s+/g, " ").trim();
 }
 
-function startDownload(url, filename) {
+// Turn an optional user folder plus a filename into a relative download path.
+// The path is always inside the browser's Downloads directory. An empty folder
+// saves straight to Downloads.
+function buildPath(folder, filename) {
+  var segments = [];
+  String(folder || "").split(/[\\/]+/).forEach(function (raw) {
+    // Clean each segment without the "file" fallback, so an empty folder stays
+    // empty rather than becoming a stray subfolder.
+    var segment = raw.replace(/[\\/:*?"<>|]+/g, "-").replace(/\s+/g, " ").trim();
+    if (segment && segment !== "." && segment !== "..") {
+      segments.push(segment);
+    }
+  });
+  var file = safeName(filename);
+  return segments.length ? segments.join("/") + "/" + file : file;
+}
+
+function startDownload(item) {
   return new Promise(function (resolve) {
     chrome.downloads.download(
       {
-        url: url,
-        filename: DOWNLOAD_FOLDER + "/" + safeName(filename),
+        url: item.url,
+        filename: buildPath(item.folder, item.filename),
         conflictAction: "uniquify",
-        saveAs: false
+        saveAs: !!item.saveAs
       },
       function (downloadId) {
         if (chrome.runtime.lastError || typeof downloadId === "undefined") {
@@ -63,7 +79,7 @@ async function runQueue() {
 
   while (current.queue.length && !current.cancelled) {
     const item = current.queue.shift();
-    const ok = await startDownload(item.url, item.filename);
+    const ok = await startDownload(item);
     current.done += 1;
     if (!ok) {
       current.failed += 1;
@@ -89,12 +105,12 @@ async function runQueue() {
   broadcast(summary);
 }
 
-function enqueue(items) {
+function enqueue(items, folder, saveAs) {
   if (!current) {
     current = { queue: [], cancelled: false, running: false, done: 0, total: 0, failed: 0 };
   }
   items.forEach(function (item) {
-    current.queue.push(item);
+    current.queue.push({ url: item.url, filename: item.filename, folder: folder, saveAs: saveAs });
   });
   current.total += items.length;
   broadcast({ type: "progress", done: current.done, total: current.total, failed: current.failed });
@@ -133,7 +149,7 @@ chrome.runtime.onConnect.addListener(function (port) {
       return;
     }
     if (message.type === "download" && Array.isArray(message.items) && message.items.length) {
-      enqueue(message.items);
+      enqueue(message.items, message.folder, message.saveAs);
     } else if (message.type === "cancel") {
       if (current) {
         current.cancelled = true;
